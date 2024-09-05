@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>ANF_UpdateIsNoAssortmentValidate</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+final class ANF_UpdateIsNoAssortmentValidate
+{
+    Map    mapEcoResCategoryListResult;
+    
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>new</Name>
+				<Source><![CDATA[
+    protected void new()
+    {
+        mapEcoResCategoryListResult = new Map(Types::Int64, Types::Int64);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>construct</Name>
+				<Source><![CDATA[
+    public static ANF_UpdateIsNoAssortmentValidate construct()
+    {        
+        return new ANF_UpdateIsNoAssortmentValidate();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmEcoResCategoryListResult</Name>
+				<Source><![CDATA[
+    public Map parmEcoResCategoryListResult(Map _ecoResCategoryListResult = mapEcoResCategoryListResult)
+    {
+        mapEcoResCategoryListResult = _ecoResCategoryListResult;
+        return mapEcoResCategoryListResult;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>ValidProductsInCategoryProduct</Name>
+				<Source><![CDATA[
+    public static boolean ValidProductsInCategoryProduct(ecoResCategory _ecoResCategory)
+    {
+        boolean existProduct;
+        EcoResProductCategory   ecoResProductCategory;
+
+        select  count(RecId) from ecoResProductCategory
+            where ecoResProductCategory.CategoryHierarchy == _ecoResCategory.CategoryHierarchy
+            && ecoResProductCategory.Category == _ecoResCategory.RecId;
+
+        existProduct = ecoResProductCategory.RecId > 0 ? false : true;
+
+        return existProduct;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>ValidProductsInNoAssertment</Name>
+				<Source><![CDATA[
+    public static boolean ValidProductsInNoAssertment(ecoResCategory _ecoResCategory)
+    {
+        boolean existProduct;
+        ANF_ComplementaryProdCategoryTab    ANFComplementaryProdCategoryTab;
+
+        select  count(RecId) from ANFComplementaryProdCategoryTab
+            where ANFComplementaryProdCategoryTab.CategoryHierarchyId == _ecoResCategory.CategoryHierarchy
+            && ANFComplementaryProdCategoryTab.CategoryId == _ecoResCategory.RecId;
+
+        existProduct = ANFComplementaryProdCategoryTab.RecId > 0 ? true : false;
+
+        return existProduct;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>UpdateDisableByCategory</Name>
+				<Source><![CDATA[
+    public void UpdateDisableByCategory(ecoResCategory _ecoResCategory)
+    {
+        boolean             isOk;
+
+        if (_ecoResCategory.ANF_IsNoAssortment == NoYes::Yes)
+        {
+            isOk = ANF_UpdateIsNoAssortmentValidate::ValidProductsInNoAssertment(_ecoResCategory);
+
+            if (isOk)
+            {
+                checkFailed(strFmt("@ANF474",_ecoResCategory.Name));
+            }
+            else
+            { 
+                ttsbegin;
+                _ecoResCategory.ANF_IsNoAssortment = NoYes::No;
+                _ecoResCategory.update();
+                ttscommit;
+                
+            }
+        }
+        
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>UpdateEnableCategoryAll</Name>
+				<Source><![CDATA[
+    public void UpdateEnableCategoryAll(ecoResCategory _ecoResCategory)
+    {
+        Map                 mapEcoResCategoryList;
+        ecoResCategory      ecoResCategoryList;
+        boolean             isOk;
+        MapEnumerator       enumerator;
+        mapEcoResCategoryList = new Map(Types::Int64, Types::Int64);
+
+        mapEcoResCategoryList.insert(_ecoResCategory.RecId, _ecoResCategory.RecId);
+        mapEcoResCategoryListResult.insert(_ecoResCategory.RecId, _ecoResCategory.RecId);
+        this.UpdateEnableCategoryParents(mapEcoResCategoryList);
+
+        enumerator = mapEcoResCategoryListResult.getEnumerator();
+ 
+        while(enumerator.moveNext())
+        {
+           ttsbegin;
+            select forupdate ecoResCategoryList
+                where ecoResCategoryList.RecId == enumerator.currentValue()
+                && ecoResCategoryList.ANF_IsNoAssortment == NoYes::No;
+            if (ecoResCategoryList)
+            {               
+                isOk = ANF_UpdateIsNoAssortmentValidate::ValidProductsInCategoryProduct(ecoResCategoryList);
+                if (isOk)
+                {
+                    ecoResCategoryList.ANF_IsNoAssortment = NoYes::Yes;
+                    ecoResCategoryList.update();                   
+                }
+                else
+                {
+                    checkFailed(strFmt("@ANF475",ecoResCategoryList.Name));
+                }
+            }
+            ttscommit;
+        }
+
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>UpdateEnableCategoryParents</Name>
+				<Source><![CDATA[
+    public void UpdateEnableCategoryParents(Map _mapEcoResCategory)
+    {
+        Map                 mapEcoResCategoryList;
+        MapEnumerator       enumerator;
+        ecoResCategory      ecoResCategoryParents;
+        int                 nReg;
+        mapEcoResCategoryList = new Map(Types::Int64, Types::Int64);
+        
+        enumerator = _mapEcoResCategory.getEnumerator();
+
+        while(enumerator.moveNext())
+        {
+            while
+            select ecoResCategoryParents
+                where ecoResCategoryParents.ParentCategory == enumerator.currentValue()
+            {
+                mapEcoResCategoryList.insert(ecoResCategoryParents.RecId, ecoResCategoryParents.RecId);
+                mapEcoResCategoryListResult.insert(ecoResCategoryParents.RecId, ecoResCategoryParents.RecId);
+                this.UpdateEnableCategoryParents(mapEcoResCategoryList);
+            }
+        }             
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

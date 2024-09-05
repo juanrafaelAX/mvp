@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <BuildTasksDirectory Condition=" '$(BuildTasksDirectory)' == ''">$(MSBuildProgramFiles32)\MSBuild\Microsoft\Dynamics\AX</BuildTasksDirectory>
+    <Model>ANF_Anfora</Model>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <OutputPath>bin</OutputPath>
+    <SchemaVersion>2.0</SchemaVersion>
+    <GenerateCrossReferences>True</GenerateCrossReferences>
+    <RunAppCheckerRules>False</RunAppCheckerRules>
+    <LogAppcheckerDiagsAsErrors>False</LogAppcheckerDiagsAsErrors>
+    <DeployOnline>False</DeployOnline>
+    <ProjectGuid>{f8c943d5-f967-494c-be34-32c28a957c17}</ProjectGuid>
+    <Name>ANF_CompCategories</Name>
+    <RootNamespace>ANF_CompCategories</RootNamespace>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+    <StartupType>Form</StartupType>
+    <StartupObject>RetailCategory (RetailCategory.ANF_Anfora)</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <Configuration>Debug</Configuration>
+    <DBSyncInBuild>False</DBSyncInBuild>
+    <GenerateFormAdaptors>False</GenerateFormAdaptors>
+    <Company>usmf</Company>
+    <Partition>initial</Partition>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DataEntityExpandParentChildRelations>False</DataEntityExpandParentChildRelations>
+    <DataEntityUseLabelTextAsFieldName>False</DataEntityUseLabelTextAsFieldName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Action Menu Items\" />
+    <Folder Include="Classes\" />
+    <Folder Include="Display Menu Items\" />
+    <Folder Include="Form Extensions\" />
+    <Folder Include="Label Files\" />
+    <Folder Include="Table Extensions\" />
+    <Folder Include="Tables\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ANF.en-us.label.txt">
+      <SubType>Content</SubType>
+      <Name>ANF.en-us.label.txt</Name>
+      <DependentUpon>AxLabelFile\ANF_en-us</DependentUpon>
+    </Content>
+    <Content Include="ANF.es-mx.label.txt">
+      <SubType>Content</SubType>
+      <Name>ANF.es-mx.label.txt</Name>
+      <DependentUpon>AxLabelFile\ANF_es-mx</DependentUpon>
+    </Content>
+    <Content Include="AxClass\ANF_RetailCreateComplementaryProdCategoryTab">
+      <SubType>Content</SubType>
+      <Name>ANF_RetailCreateComplementaryProdCategoryTab</Name>
+      <Link>Classes\ANF_RetailCreateComplementaryProdCategoryTab</Link>
+    </Content>
+    <Content Include="AxClass\ANF_UpdateIsNoAssortmentValidate">
+      <SubType>Content</SubType>
+      <Name>ANF_UpdateIsNoAssortmentValidate</Name>
+      <Link>Classes\ANF_UpdateIsNoAssortmentValidate</Link>
+    </Content>
+    <Content Include="AxClass\RetailAddItems_ANF_Anfora_Extension">
+      <SubType>Content</SubType>
+      <Name>RetailAddItems_ANF_Anfora_Extension</Name>
+      <Link>Classes\RetailAddItems_ANF_Anfora_Extension</Link>
+    </Content>
+    <Content Include="AxClass\RetailCategory_ANF_AddRetailProductsNoAssortment_ANF_Anfora_Extension">
+      <SubType>Content</SubType>
+      <Name>RetailCategory_ANF_AddRetailProductsNoAssortment_ANF_Anfora_Extension</Name>
+      <Link>Classes\RetailCategory_ANF_AddRetailProductsNoAssortment_ANF_Anfora_Extension</Link>
+    </Content>
+    <Content Include="AxClass\RetailCategory_ANF_Anfora_Extension">
+      <SubType>Content</SubType>
+      <Name>RetailCategory_ANF_Anfora_Extension</Name>
+      <Link>Classes\RetailCategory_ANF_Anfora_Extension</Link>
+    </Content>
+    <Content Include="AxClass\RetailCategory_ANF_ComplementaryProdCategoryTab_ANF_Anfora_Extension">
+      <SubType>Content</SubType>
+      <Name>RetailCategory_ANF_ComplementaryProdCategoryTab_ANF_Anfora_Extension</Name>
+      <Link>Classes\RetailCategory_ANF_ComplementaryProdCategoryTab_ANF_Anfora_Extension</Link>
+    </Content>
+    <Content Include="AxClass\RetailCategory_ANF_ProductsNoAssortmentAddProduct_ANF_Anfora_Extension">
+      <SubType>Content</SubType>
+      <Name>RetailCategory_ANF_ProductsNoAssortmentAddProduct_ANF_Anfora_Extension</Name>
+      <Link>Classes\RetailCategory_ANF_ProductsNoAssortmentAddProduct_ANF_Anfora_Extension</Link>
+    </Content>
+    <Content Include="AxClass\RetailCategory_ANF_UpdateIsNoAssertmentActive_ANF_Anfora_Extension">
+      <SubType>Content</SubType>
+      <Name>RetailCategory_ANF_UpdateIsNoAssertmentActive_ANF_Anfora_Extension</Name>
+      <Link>Classes\RetailCategory_ANF_UpdateIsNoAssertmentActive_ANF_Anfora_Extension</Link>
+    </Content>
+    <Content Include="AxClass\RetailCategory_ANF_UpdateIsNoAssertmentDeactive_ANF_Anfora_Extension">
+      <SubType>Content</SubType>
+      <Name>RetailCategory_ANF_UpdateIsNoAssertmentDeactive_ANF_Anfora_Extension</Name>
+      <Link>Classes\RetailCategory_ANF_UpdateIsNoAssertmentDeactive_ANF_Anfora_Extension</Link>
+    </Content>
+    <Content Include="AxClass\RetailCategory_EcoResCategory_ANF_Anfora_Extension">
+      <SubType>Content</SubType>
+      <Name>RetailCategory_EcoResCategory_ANF_Anfora_Extension</Name>
+      <Link>Classes\RetailCategory_EcoResCategory_ANF_Anfora_Extension</Link>
+    </Content>
+    <Content Include="AxFormExtension\RetailCategory.ANF_Anfora">
+      <SubType>Content</SubType>
+      <Name>RetailCategory.ANF_Anfora</Name>
+      <Link>Form Extensions\RetailCategory.ANF_Anfora</Link>
+    </Content>
+    <Content Include="AxLabelFile\ANF_en-us">
+      <SubType>Content</SubType>
+      <Name>ANF_en-us</Name>
+      <Link>Label Files\ANF_en-us</Link>
+    </Content>
+    <Content Include="AxLabelFile\ANF_es-mx">
+      <SubType>Content</SubType>
+      <Name>ANF_es-mx</Name>
+      <Link>Label Files\ANF_es-mx</Link>
+    </Content>
+    <Content Include="AxMenuItemAction\ANF_RetailCreateComplementaryProdCategoryTab">
+      <SubType>Content</SubType>
+      <Name>ANF_RetailCreateComplementaryProdCategoryTab</Name>
+      <Link>Action Menu Items\ANF_RetailCreateComplementaryProdCategoryTab</Link>
+    </Content>
+    <Content Include="AxMenuItemDisplay\ANF_RetailAddProductsVariants">
+      <SubType>Content</SubType>
+      <Name>ANF_RetailAddProductsVariants</Name>
+      <Link>Display Menu Items\ANF_RetailAddProductsVariants</Link>
+    </Content>
+    <Content Include="AxTableExtension\EcoResCategory.ANF_Anfora">
+      <SubType>Content</SubType>
+      <Name>EcoResCategory.ANF_Anfora</Name>
+      <Link>Table Extensions\EcoResCategory.ANF_Anfora</Link>
+    </Content>
+    <Content Include="AxTable\ANF_ComplementaryProdCategoryTab">
+      <SubType>Content</SubType>
+      <Name>ANF_ComplementaryProdCategoryTab</Name>
+      <Link>Tables\ANF_ComplementaryProdCategoryTab</Link>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.Common.targets" />
+  <Import Project="$(BuildTasksDirectory)\Microsoft.Dynamics.Framework.Tools.BuildTasks.targets" />
+</Project>
